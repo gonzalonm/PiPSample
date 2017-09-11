@@ -33,14 +33,14 @@
                 android:id="@+id/pip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PIP"/>
+                android:text="@string/enter_to_pip_mode"/>
 
             <TextView
                 android:id="@+id/explanation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:text="SOME TEXT"
+                android:text="@string/content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
         </LinearLayout>

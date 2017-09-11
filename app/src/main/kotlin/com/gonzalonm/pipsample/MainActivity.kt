@@ -151,8 +151,7 @@ class MainActivity : AppCompatActivity(), VideoView.VideoListener {
         setPictureInPictureParams(mPictureInPictureParamsBuilder.build())
     }
 
-    override fun onPictureInPictureModeChanged(isInPictureInPictureMode: Boolean,
-                                               newConfig: Configuration) {
+    override fun onPictureInPictureModeChanged(isInPictureInPictureMode: Boolean, newConfig: Configuration) {
         super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig)
         if (isInPictureInPictureMode) {
             // Starts receiving events from action items in PiP mode.
