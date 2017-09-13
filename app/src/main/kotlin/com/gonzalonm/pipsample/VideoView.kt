@@ -246,27 +246,35 @@ class VideoView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
             try {
                 resources.openRawResourceFd(mVideoResourceId).use { fd ->
                     player.setDataSource(fd)
-                    player.setOnPreparedListener { mediaPlayer ->
-                        // Adjust the aspect ratio of this view
-                        requestLayout()
-                        if (mSavedCurrentPosition > 0) {
-                            mediaPlayer.seekTo(mSavedCurrentPosition)
-                            mSavedCurrentPosition = 0
-                        } else {
-                            // Start automatically
-                            play()
-                        }
-                    }
-                    player.setOnCompletionListener {
-                        adjustToggleState()
-                        keepScreenOn = false
-                        mVideoListener?.onVideoStopped()
-                    }
+                    setOnPrepareListener(player)
+                    setOnCompletionListener(player)
                     player.prepare()
                 }
             } catch (e: IOException) {
                 Log.e(TAG, "Failed to open video", e)
             }
+        }
+    }
+
+    internal fun setOnPrepareListener(player: MediaPlayer) {
+        player.setOnPreparedListener { mediaPlayer ->
+            // Adjust the aspect ratio of this view
+            requestLayout()
+            if (mSavedCurrentPosition > 0) {
+                mediaPlayer.seekTo(mSavedCurrentPosition)
+                mSavedCurrentPosition = 0
+            } else {
+                // Start automatically
+                play()
+            }
+        }
+    }
+
+    internal fun setOnCompletionListener(player: MediaPlayer) {
+        player.setOnCompletionListener {
+            adjustToggleState()
+            keepScreenOn = false
+            mVideoListener?.onVideoStopped()
         }
     }
 
